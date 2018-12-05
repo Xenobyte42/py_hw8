@@ -1,3 +1,15 @@
 from django.db import models
 
-# Create your models here.
+
+class Post(models.Model):
+    theme = models.CharField(max_length=100, unique=True, verbose_name='Post theme')
+    text = models.CharField(max_length=400, verbose_name='Post sample')
+    is_active = models.BooleanField(default=True)
+    view_num = models.BigIntegerField(default=0, verbose_name='Number of views')
+    creation_time = models.DateTimeField('Date published')
+
+
+class Comment(models.Model):
+    text = models.CharField(max_length=200, verbose_name='Comment sample')
+    blog = models.ForeignKey(to='Post', on_delete=models.SET_NULL, null=True)
+
