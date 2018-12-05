@@ -1,15 +1,21 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import *
+
+
+MAIN_HTML = 'main.html'
+POST_HTML = 'post.html'
+THEME_HTML = 'theme.html'
+NEWPOST_HTML = 'add_post.html'
 
 
 def main_page(request):
-    return HttpResponse("Main")
+    return render(request, MAIN_HTML)
 
 def new_post(request):
-    return HttpResponse("New post")
+    return render(request, NEWPOST_HTML)
 
 def post(request, post_name):
-    return HttpResponse("Post")
+    return render(request, POST_HTML)
 
 def post_theme(request, post_theme):
-    return HttpResponse("Post theme")
+    return render(request, THEME_HTML)
