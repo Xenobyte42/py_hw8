@@ -1,4 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-Main.html
+
+<div class="text-center">
+    <h1 class="text-white">Blog</h1>
+    <hr>
+</div>
+
+<div class="row mb-2">
+
+    {% for post in posts %}
+        {% with post as post %}
+            {% include 'card.html' %}
+        {% endwith %}
+    {% endfor %}
+
+</div>
+
 {% endblock %}

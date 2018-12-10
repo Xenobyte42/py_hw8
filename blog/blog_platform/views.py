@@ -9,13 +9,18 @@ NEWPOST_HTML = 'add_post.html'
 
 
 def main_page(request):
-    return render(request, MAIN_HTML)
+    posts = Post.objects.all()
+    
+    context = {'posts': posts}
+    return render(request, MAIN_HTML, context)
 
 def new_post(request):
     return render(request, NEWPOST_HTML)
 
 def post(request, post_name):
-    return render(request, POST_HTML)
+    post = Post.objects.all()[0]
+    context = {'post': post}
+    return render(request, POST_HTML, context)
 
 def post_theme(request, post_theme):
     return render(request, THEME_HTML)
