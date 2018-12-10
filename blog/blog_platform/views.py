@@ -36,7 +36,20 @@ def new_post(request):
 
 def post(request, post_name):
     post = Post.objects.get_post(post_name)
-    context = {'post': post}
+
+    comments = Comment.objects.get_comments(post)
+
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.blog = post
+            comment.save()
+            
+            return redirect('post', post_name=post_name)
+    else:
+        form = CommentForm()
+    context = {'post': post, 'comments': comments, 'form': form}
     return render(request, POST_HTML, context)
 
 def post_theme(request, post_theme):

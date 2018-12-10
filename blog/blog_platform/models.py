@@ -15,6 +15,12 @@ class PostManager(models.Manager):
         return post
 
 
+class CommentManager(models.Manager):
+
+    def get_comments(self, post):
+        return post.comment.all()
+
+
 class Post(models.Model):
     objects = PostManager()
 
@@ -27,6 +33,8 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    text = models.CharField(max_length=200, verbose_name='Comment sample')
-    blog = models.ForeignKey(to='Post', on_delete=models.SET_NULL, null=True)
+    objects = CommentManager()
+    
+    text = models.TextField(max_length=200, verbose_name='')
+    blog = models.ForeignKey(to='Post', on_delete=models.SET_NULL, null=True, related_name='comment')
 
