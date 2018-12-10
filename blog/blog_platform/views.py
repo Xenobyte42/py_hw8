@@ -1,5 +1,8 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
+
 from .models import *
+from .forms import *
 
 
 MAIN_HTML = 'main.html'
@@ -18,10 +21,21 @@ def main_page(request):
     return render(request, MAIN_HTML, context)
 
 def new_post(request):
-    return render(request, NEWPOST_HTML)
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+
+            return redirect('post', post_name=post.theme)
+    else:
+        form = PostForm()
+    
+    context = {'form': form}
+    return render(request, NEWPOST_HTML, context)
 
 def post(request, post_name):
-    post = Post.objects.all()[0]
+    post = Post.objects.get_post(post_name)
     context = {'post': post}
     return render(request, POST_HTML, context)
 
