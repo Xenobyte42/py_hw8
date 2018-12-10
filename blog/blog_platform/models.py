@@ -14,6 +14,9 @@ class PostManager(models.Manager):
         post = get_object_or_404(Post, theme=post_name)
         return post
 
+    def get_post_with(self, post_theme):
+        return self.filter(theme__contains=post_theme)
+
 
 class CommentManager(models.Manager):
 

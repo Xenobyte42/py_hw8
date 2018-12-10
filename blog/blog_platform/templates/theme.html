@@ -1,4 +1,28 @@
 {% extends 'base.html' %}
+
 {% block content %}
-Theme.html 
+
+{% include 'navbar.html' %}
+
+<div class="row ml-4 text-center">
+    <h3 class="text-white">
+    Theme: {{ theme }}
+    </h3>
+</div>
+
+<div class="row mb-2">
+
+    {% for post in posts %}
+        {% with post as post %}
+            {% include 'card.html' %}
+        {% endwith %}
+    {% endfor %}
+
+</div>
+
+<div class="mt-4 pagination justify-content-center">
+    {% load bootstrap4 %}
+    {% bootstrap_pagination posts %}
+</div>
+
 {% endblock %}

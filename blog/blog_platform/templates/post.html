@@ -1,34 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{% include 'navbar.html' %}
+
 <main role="main" class="container text-white">
-    <h3 class="pb-3 mb-4 font-italic border-bottom">
-        <a class="text-white" href="{% url 'main_page' %}">Back to main</a>
-    </h3>
+
     <div class="row mt-4">
         <div class="col-md-8 blog-main">
             <div class="blog-post">
                 <h2 class="blog-post-title font-italic">{{ post.theme }}</h2>
-                <p class="blog-post-meta">{{ post.creation_time }}</p>
+                <p class="blog-post-meta"><i>{{ post.creation_time }}</i></p>
 
                 <p>{{ post.text }}</p>
             </div>
             <div>
-            <p>View num: {{ post.view_num }}</p>
+            <strong>Views: {{ post.view_num }}</strong>
             </div>
         </div>
     </div>
 
     <hr>
 
-    <div class="col-md-6 ml-4">
-        {% for comment in comments %}
-            {% with comment as comment %}
-                {% include 'comment.html' %}
-            {% endwith %}
-        {% endfor %}
-    </div>
+    <div class="col-md-6">
+        <div>
+            {% for comment in comments %}
+                {% with comment as comment %}
+                    {% include 'comment.html' %}
+                {% endwith %}
+            {% endfor %}
+        </div>
 
+        <div class="mt-4 pagination justify-content-center">
+            {% load bootstrap4 %}
+            {% bootstrap_pagination comments %}
+        </div>
+    </div>
     <hr>
 
     <div class="mt-4">
@@ -36,7 +42,7 @@
         <form method="POST" class="post-form">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="save btn btn-default">Save</button>
+            <button type="submit" class="save btn btn-default">Answer</button>
         </form>
     </div>
 

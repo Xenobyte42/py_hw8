@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
+
+{% include 'navbar.html' %}
+
 <main role="main" class="container text-white">
-    <h3 class="pb-3 mb-4 font-italic border-bottom">
-        <a class="text-white" href="{% url 'main_page' %}">Back to main</a>
-    </h3>
     <div class="mt-4">
         <h2 class="blog-post-title font-italic mb-4">New post</h2>
         <form method="POST" class="post-form">
@@ -13,4 +13,5 @@
         </form>
     </div>
 </main>
+
 {% endblock %}
