@@ -1,7 +1,18 @@
 from django.db import models
 
 
+class PostManager(models.Manager):
+
+    def view_sort(self):
+        return self.order_by('-view_num')
+
+    def date_sort(self):
+        return self.order_by('-creation_time')
+
+
 class Post(models.Model):
+    objects = PostManager()
+
     theme = models.CharField(max_length=100, unique=True, verbose_name='Post theme')
     description = models.CharField(max_length=50, verbose_name='Description', default="")
     text = models.CharField(max_length=400, verbose_name='Post sample')

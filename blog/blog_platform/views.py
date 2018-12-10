@@ -9,7 +9,10 @@ NEWPOST_HTML = 'add_post.html'
 
 
 def main_page(request):
-    posts = Post.objects.all()
+    if request.GET.get('viewsort', None):
+        posts = Post.objects.view_sort()
+    else:
+        posts = Post.objects.date_sort()
     
     context = {'posts': posts}
     return render(request, MAIN_HTML, context)
