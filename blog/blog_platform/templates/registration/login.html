@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% include 'navbar.html' %}
+
+<main role="main" class="container text-white">
+    <div class="mt-4">
+        <h2 class="blog-post-title font-italic mb-4">Login</h2>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td class="text-white">{{ form.username.label_tag }}</td>
+                    <td>{{ form.username }}</td>
+                </tr>
+                <tr>
+                    <td class="text-white">{{ form.password.label_tag }}</td>
+                    <td>{{ form.password }}</td>
+                </tr>
+            </table>
+            
+            {% if form.errors %}
+                <p>Your username and password didn't match. Please try again.</p>
+            {% endif %}
+
+            <button type="submit" class="save btn btn-default">Login</button>
+            <input type="hidden" name="next" value="{% url 'main_page' %}">
+        </form>
+    </div>
+</main>
+
+{% endblock %}

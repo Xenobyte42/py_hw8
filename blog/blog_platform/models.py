@@ -1,5 +1,6 @@
 from django.db import models
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import AbstractUser
 
 
 class PostManager(models.Manager):
@@ -33,11 +34,18 @@ class Post(models.Model):
     is_active = models.BooleanField(default=True)
     view_num = models.BigIntegerField(default=0, verbose_name='Number of views')
     creation_time = models.DateTimeField('Date published', auto_now_add=True)
+    author = models.ForeignKey(to='BlogUser', on_delete=models.SET_NULL, null=True, related_name='post')
 
 
 class Comment(models.Model):
     objects = CommentManager()
-    
+
     text = models.TextField(max_length=200, verbose_name='')
     blog = models.ForeignKey(to='Post', on_delete=models.SET_NULL, null=True, related_name='comment')
+    author = models.ForeignKey(to='BlogUser', on_delete=models.SET_NULL, null=True, related_name='comment')
+
+
+class BlogUser(AbstractUser):
+    avatar = models.ImageField(upload_to='uploads/%Y/%m/%d/')
+    label = models.CharField(max_length=60, verbose_name='User sign')
 

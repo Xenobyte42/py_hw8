@@ -15,3 +15,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('text',)
+
+class RegistrationForm(forms.ModelForm):
+
+    class Meta:
+        model = BlogUser
+        fields = ('username', 'password', 'avatar', 'label',)

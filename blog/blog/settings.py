@@ -101,6 +101,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'blog_platform.BlogUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -120,5 +121,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'blog_platform')
+
+MEDIA_ROOT = 'media/'
+
+# Custom settings
+
+LOGIN_URL = '/login/'
+
+LOGOUT_REDIRECT_URL = '/login/'
+
+POST_PER_PAGE = 4
+
+COMM_PER_PAGE = 10
 
