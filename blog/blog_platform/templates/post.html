@@ -16,6 +16,9 @@
             <div>
             <strong>Views: {{ post.view_num }}</strong>
             </div>
+            <div>
+                <a class="text-white" href="{% url 'post_edit' post_name=post.theme %}">Edit</a>
+            </div>
         </div>
     </div>
 

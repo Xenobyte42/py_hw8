@@ -10,6 +10,7 @@ MAIN_HTML = 'main.html'
 POST_HTML = 'post.html'
 THEME_HTML = 'theme.html'
 NEWPOST_HTML = 'add_post.html'
+EDITPOST_HTML = 'edit_post.html'
 POST_PER_PAGE = 4
 COMM_PER_PAGE = 10
 
@@ -71,3 +72,19 @@ def post_theme(request):
     render_posts = paginate(posts, request, POST_PER_PAGE)
     context = {'theme': theme, 'posts': render_posts}
     return render(request, THEME_HTML, context)
+
+def post_edit(request, post_name):
+    post = Post.objects.get_post(post_name)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('post', post_name=post.theme)
+    else:
+        form = PostForm(instance=post)
+    context = {'form': form}
+    return render(request, EDITPOST_HTML, context)
+    
+
